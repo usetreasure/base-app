@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Treasure</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body class="bg-white">
+    <div id="app" class="react-app"></div>
+    <%= yield %>
+  </body>
+  <script type="text/javascript">
+    <% if user_signed_in? %>
+      <%
+      hash = OpenSSL::HMAC.hexdigest(
+        'sha256',
+        '1L9HiT-Ik03ZtY4YTNMaLjjbaJfS0QamYtkoyn1g',
+        current_user.email
+      )
+      %>
+      window.currentUser = {
+        id: <%= current_user[:id] %>,
+        email: "<%= h current_user[:email] %>",
+        createdAt: <%= current_user.created_at.to_i %>,
+        hash: "<%= hash %>"
+      };
+    <% else %>
+      window.currentUser = null;
+    <% end %>
+    window._env_ = {
+      production: <% if Rails.env.production? %>true<% else %>false<% end %>,
+      REACT_APP_GA_TRACKING_ID: 'xxxxxxxxxxxxxxxx'
+    };
+  </script>
+  <%= javascript_pack_tag 'application' %>
+</html>

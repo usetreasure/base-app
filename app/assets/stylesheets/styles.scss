@@ -1,0 +1,6 @@
+.mainContainer {
+  min-height: calc(100vh - 60px - 136px); // header + footer
+}
+
+@import "colors.scss";
+@import "../bootstrap/bootstrap.scss";
