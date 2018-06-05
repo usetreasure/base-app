@@ -12,5 +12,5 @@
 //
 //= require rails-ujs
 //= require activestorage
-//= require turbolinks
+// require turbolinks // removed to avoid unmounting issues https://github.com/rails/webpacker/issues/336
 //= require_tree .
